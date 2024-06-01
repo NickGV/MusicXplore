@@ -1,0 +1,53 @@
+.player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  .player__button-icon {
+    font-size: 2rem;
+  }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background-color: var(--accent-color);
+    }
+  }
+
+  .player__text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .player__title {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .player__img-container {
+      width: 100px;
+    }
+
+    .player__img {
+      border-radius: 5px;
+    }
+  }
+
+  .player__controls {
+    display: flex;
+    gap: 1rem;
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  .player__options {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
