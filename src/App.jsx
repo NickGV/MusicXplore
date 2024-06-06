@@ -6,6 +6,7 @@ import { SearchBar } from "./components/Search/SearchBar";
 import { SearchResults } from "./components/Search/SearchResults";
 
 function App() {
+ 
   return (
     <>
       <header className="header">

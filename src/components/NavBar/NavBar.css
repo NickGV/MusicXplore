@@ -6,8 +6,7 @@
   box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.53);
   padding: 1rem;
   margin-left: 1rem;
-  height: 40rem;
-  max-height: 40rem;
+  max-height: 30rem;
   gap: 3rem;
 
   .nav-bar__links {
@@ -27,5 +26,11 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .nav-bar {
+    max-height: 42rem;
   }
 }
