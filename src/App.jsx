@@ -18,9 +18,9 @@ function App() {
         <SearchResults />
         <Queue />
       </main>
-      <footer className="footer">
+      <section className="audio-player">
         <AudioPlayer />
-      </footer>
+      </section>
     </>
   );
 }

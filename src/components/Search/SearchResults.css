@@ -1,3 +1,14 @@
+.results {
+  max-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 480px) {
+    padding: 0.5rem;
+  }
+}
+
 .results__header {
   display: flex;
   justify-content: space-between;
@@ -27,35 +38,93 @@
   }
 }
 
-.songs-container {
-  padding: 0.5rem;
-  overflow-y: auto;
-  max-height: 50rem;
+.results__content {
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+.results__container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  max-height: 35rem;
+  scrollbar-width: none;
+
+  .result__title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  @media screen and (max-width: 480px) {
+    max-height: 100%;
+    margin-bottom: 5rem;
+  }
+}
+
+.results__links {
+  display: flex;
+  transition: color 0.2s ease-in-out;
+
+  .results__link {
+    &:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+.songs-container {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
 
   &.grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-  }
 
-  .results__links {
-    display: flex;
-    transition: color 0.2s ease-in-out;
-
-    .results__link {
-      &:hover {
-        color: var(--accent-color);
-        text-decoration: underline;
-        cursor: pointer;
-      }
+    @media screen and (max-width: 480px) {
+      grid-template-columns: 1fr 1fr;
     }
   }
 }
 
-@media (min-width: 768px) {
-  .nav-bar {
-    max-height: 40rem;
+.playlists-container {
+  padding: 0.5rem;
+  display: grid;
+  overflow-x: scroll;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  scrollbar-width: none;
+  gap: 1rem;
+
+  @media screen and (max-width: 480px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
   }
+}
+
+@media (min-width: 1580px) {
+  .results {
+    max-height: 100%;
+  }
+
+  .results__container {
+    max-height: 48rem;
+  }
+
+  .artists-container {
+    width: 57rem;
+  }
+}
+
+.prueba-btn {
+  background-color: white;
+  color: black;
+  padding: 0.5rem;
+  border-radius: 10px;
+  cursor: pointer;
 }

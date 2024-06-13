@@ -5,8 +5,9 @@
   border-radius: 5px;
   box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.53);
   padding: 1rem;
+  height: 40rem;
+  width: 100%;
   margin-left: 1rem;
-  max-height: 30rem;
   gap: 3rem;
 
   .nav-bar__links {
@@ -29,8 +30,47 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1580px) {
   .nav-bar {
-    max-height: 42rem;
+    height: 53rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .nav-bar {
+    z-index: 10;
+    margin-left: 0;
+    padding: 0;
+    flex-direction: row;
+    height: 50px;
+    padding: .5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    
+
+    .nav-bar__links {
+       display: flex;
+       flex-direction: row;
+       justify-content: space-evenly;
+       width: 100%;
+       margin: 0;
+       gap: 1rem;
+
+       .nav-bar__link {
+        font-size: .8em;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 0;
+         padding: 0;
+
+         &:hover {
+           box-shadow: 0px 3px 5px rgba(255, 255, 255, 0.507);
+           cursor: pointer;
+         }
+       }
+     }
+   }
   }
 }

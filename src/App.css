@@ -7,17 +7,27 @@
     font-size: 2em;
     font-weight: bold;
   }
+
+  @media screen and (max-width: 480px) {
+    & .header__title {
+      font-size: 1.3rem;
+    }
+  }
 }
 
 .main {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   gap: 2rem;
-  width: 100%;
   height: 100%;
+  width: 100%;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 }
 
-.footer {
+.audio-player {
   width: 100%;
   padding: 1rem;
   position: fixed;
@@ -25,4 +35,8 @@
   left: 0;
   background-color: var(--primary-color);
   box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.233);
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 }
