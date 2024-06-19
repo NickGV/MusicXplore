@@ -2,11 +2,11 @@ import "./PlaylistItem.css";
 
 import { Add } from "@mui/icons-material";
 
-export const PlaylistItem = ({ id, name, owner, image }) => {
+export const PlaylistItem = ({ viewType, id, name, owner, image }) => {
   const author_spotify = owner.external_urls.spotify;
   const { display_name } = owner;
   return (
-    <div className="playlist">
+    <div className={`playlist ${viewType}`}>
       <div className="playlist__details">
         <div className="playlist__img-container">
           <img src={image} alt="" className="playlist__img" />
@@ -21,9 +21,6 @@ export const PlaylistItem = ({ id, name, owner, image }) => {
             </p>
           </div>
         </div>
-        <button type="button" className="add-btn">
-          <Add className="add-btn__icon"/>
-        </button>
       </div>
     </div>
   );

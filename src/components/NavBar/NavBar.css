@@ -8,7 +8,7 @@
   height: 40rem;
   width: 100%;
   margin-left: 1rem;
-  gap: 3rem;
+  /* gap: 3rem; */
 
   .nav-bar__links {
     display: flex;
@@ -27,8 +27,39 @@
         cursor: pointer;
       }
     }
+    .nav-bar__link--drop{
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       &:hover .nav-bar__link-icon{
+        color: var(--accent-color);
+      }
+
+       .nav-bar__link-description{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+       }
+       .nav-bar__link-icon{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          
+          svg{
+            font-size: 1.5em;
+          }
+        } 
+    }
+  }
+  .playlist-list{
+    overflow-y: auto;
+    max-height: 100%;
+    scrollbar-width: none;
+    margin-top: 1rem;
   }
 }
+
+
 
 @media screen and (min-width: 1580px) {
   .nav-bar {

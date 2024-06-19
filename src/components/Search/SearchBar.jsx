@@ -1,24 +1,31 @@
-import{ useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search.js';
+import { useContext, useState } from "react";
+import SearchIcon from "@mui/icons-material/Search.js";
+import { MusicContext } from "../../context/MusicContext";
+import "./SearchBar.css";
+import { search } from "../../api/spotifyService";
 
-import './SearchBar.css'
-
-export const SearchBar = ({onSearch}) => {
-  const [query, setQuery] = useState('');
+export const SearchBar = () => {
+  const [query, setQuery] = useState("");
+  const { handleResults, setIsLoading } = useContext(MusicContext);
 
   const handleChange = (event) => {
     setQuery(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onSearch(query);
+    if (query.length > 0) {
+      setIsLoading(true);
+      const data = await search(query, "track,playlist");
+      setIsLoading(false);
+      handleResults(data);
+    }
   };
 
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
       <div className="search-bar__input-container">
-      <SearchIcon className='search-bar__icon'/>
+        <SearchIcon className="search-bar__icon" />
         <input
           type="text"
           value={query}
@@ -29,6 +36,4 @@ export const SearchBar = ({onSearch}) => {
       </div>
     </form>
   );
-}
-
-
+};
