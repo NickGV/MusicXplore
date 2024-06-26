@@ -3,10 +3,12 @@ import SearchIcon from "@mui/icons-material/Search.js";
 import { MusicContext } from "../../context/MusicContext";
 import "./SearchBar.css";
 import { search } from "../../api/spotifyService";
+import { useNavigate } from "react-router-dom";
 
 export const SearchBar = () => {
   const [query, setQuery] = useState("");
   const { handleResults, setIsLoading } = useContext(MusicContext);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -19,6 +21,7 @@ export const SearchBar = () => {
       const data = await search(query, "track,playlist");
       setIsLoading(false);
       handleResults(data);
+      navigate("/"); 
     }
   };
 

@@ -31,25 +31,28 @@
        display: flex;
        align-items: center;
        justify-content: space-between;
-       &:hover .nav-bar__link-icon{
-        color: var(--accent-color);
-      }
+      
 
        .nav-bar__link-description{
         display: flex;
         gap: 1rem;
         align-items: center;
        }
-       .nav-bar__link-icon{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          
-          svg{
-            font-size: 1.5em;
-          }
-        } 
     }
+    .addPlaylist-btn{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease-in-out;
+      &:hover{
+        color: var(--accent-color);
+        transform: scale(1.1);
+      }
+      
+      svg{
+        font-size: 1.5em;
+      }
+    } 
   }
   .playlist-list{
     overflow-y: auto;

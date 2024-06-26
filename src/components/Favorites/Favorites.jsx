@@ -3,7 +3,7 @@ import { MusicContext } from "../../context/MusicContext";
 import { SongItem } from "../Song/SongItem";
 
 export const Favorites = () => {
-  const { favoriteMusic, setFavoriteMusic } = useContext(MusicContext);
+  const { favoriteMusic } = useContext(MusicContext);
 
   return (
     <div>
@@ -22,8 +22,9 @@ export const Favorites = () => {
                 <SongItem
                   id={music.id}
                   name={music.name}
-                  artist={music.artist}
+                  artists={music.artists}
                   image={music.image}
+                  preview={music.preview}
                 />
               </li>
             ))}

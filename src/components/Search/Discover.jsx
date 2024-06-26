@@ -9,12 +9,11 @@ export const Discover = () => {
   const [viewType, setViewType] = useState("list");
   const [viewCategory, setViewCategory] = useState("all");
 
-  const { result, isLoading, favoriteMusic } = useContext(MusicContext);
+  const { result, isLoading } = useContext(MusicContext);
 
   const handleLinkClick = (category) => {
     setViewCategory(category);
   };
-  console.log(favoriteMusic);
 
   return (
     <section className="results">
@@ -32,7 +31,7 @@ export const Discover = () => {
       <div className="results__content">
         <ul className="results__links">
           <li className="results__link">
-            <a href="#tracks" onClick={() => handleLinkClick("all")}>
+            <a href="#" onClick={() => handleLinkClick("all")}>
               All
             </a>
           </li>
@@ -72,8 +71,9 @@ export const Discover = () => {
                         key={item.id}
                         id={item.id}
                         name={item.name}
-                        artist={item.artist}
+                        artists={item.artists}
                         image={item.image}
+                        preview={item.preview}
                       />
                     ))}
                   </div>
@@ -110,9 +110,10 @@ export const Discover = () => {
                       <SongItem
                         viewType={viewType}
                         key={item.id}
+                        id={item.id}
                         name={item.name}
                         artists={item.artists}
-                        image={item.images}
+                        image={item.image}
                       />
                     ))}
                   </div>
@@ -121,14 +122,15 @@ export const Discover = () => {
               {viewCategory === "playlists" && (
                 <>
                   <h2 className="result__title">Playlists</h2>
-                  <div className="playlists-container" id="playlists">
+                  <div className="playlists-container">
                     {result.playlists.items.map((item) => (
                       <PlaylistItem
                         viewType={"grid"}
                         key={item.id}
+                        id={item.id}
                         name={item.name}
                         owner={item.owner}
-                        image={item.images[0].url}
+                        image={item.image}
                       />
                     ))}
                   </div>

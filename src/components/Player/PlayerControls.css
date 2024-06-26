@@ -1,0 +1,6 @@
+.player__controls {
+  display: flex;
+  width: 50%;
+  gap: 1rem;
+  justify-content: center;
+}

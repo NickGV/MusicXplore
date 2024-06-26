@@ -154,7 +154,7 @@
   flex-direction: row;
   align-items: start;
   justify-content: start;
-  padding: .5rem;
+  padding: 0.5rem;
   border-radius: 5px;
   gap: 0;
   box-shadow: none;
@@ -170,5 +170,32 @@
     width: 35px;
     height: 35px;
     border-radius: 5px;
+  }
+}
+
+.playlist.list--smaller {
+  margin-top: 0;
+  flex-direction: row;
+  align-items: start;
+  justify-content: start;
+  padding: 0.5rem;
+  border-radius: 5px;
+  gap: 0;
+  box-shadow: none;
+
+  .playlist__details {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-bottom: 0;
+    font-size: 0.8em;
+
+    .playlist__author {
+      display: none;
+    }
+  }
+
+  .playlist__img-container {
+    display: none;
   }
 }

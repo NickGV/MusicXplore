@@ -1,7 +1,7 @@
 .queue {
   display: flex;
   flex-direction: column;
-  
+
   height: 100%;
 }
 
@@ -12,6 +12,7 @@
 }
 
 .queue__list {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -19,14 +20,14 @@
   margin-right: 1rem;
   border-radius: 5px;
   overflow-y: auto;
-  max-height: 36.5rem;
+  height: 36.5rem;
   box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.253);
   margin-bottom: 1rem;
 }
 
 @media screen and (min-width: 1580px) {
   .queue__list {
-    max-height: 49.6rem;
+    height: 49.6rem;
   }
 }
 

@@ -1,58 +1,92 @@
-.song-queue {
+.queue-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.7rem;
+  padding: 0.5rem;
   border-radius: 5px;
-  box-shadow: 1px 1px 3px white;
-  &:hover{
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
     box-shadow: 0px 3px 5px var(--secondary-color);
     background-color: var(--primary-color);
-  } 
+    cursor: pointer;
+  }
+
+  .queue-item__details {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .queue-item__title {
+    font-weight: bold;
+    font-size: 0.7em;
+    margin-bottom: 0.4rem;
+  }
+
+  .queue-item__artist {
+    font-size: 0.6em;
+  }
+
+  .queue-item__img-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+  }
+
+  .queue-item__img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+
+  .queue-item__description {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .queue-item__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    color: white;
+  }
+
+  .queue-item__button-icon {
+    font-size: 2em;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--accent-color);
+      transform: scale(1.2);
+    }
+  }
 }
 
-.song-queue.song-queue--active{
+.queue-item.queue-item--active {
   box-shadow: 0px 3px 5px var(--secondary-color);
   background-color: var(--primary-color);
 }
 
-.song-queue__details {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8em;
-}
+@media screen and (max-width: 480px) {
+  .queue-item-item {
+    box-shadow: none;
+    padding: 0;
 
-.song-queue__img {
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
-  border: 1px solid white;
-}
+    .queue-item__title {
+      font-size: 0.8em;
+    }
+    .queue-item__artists {
+      font-size: 0.6em;
+      &:before {
+        content: "Artists: ";
+        font-weight: 600;
+      }
+    }
 
-.song-queue__description {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.8em;
-}
-
-.song-queue__buttons {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.song-queue__button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  color: white;
-  transition: transform 0.2s ease-in;
-
-  &:hover {
-    transform: scale(1.1);
-    color: var(--accent-color);
+    .queue-item__buttons {
+      display: none;
+    }
   }
 }

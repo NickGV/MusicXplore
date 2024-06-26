@@ -1,12 +1,27 @@
 import "./PlaylistItem.css";
+import { getPlaylist } from "../../api/spotifyService";
+import { useContext } from "react";
+import { MusicContext } from "../../context/MusicContext";
 
-import { Add } from "@mui/icons-material";
+export const PlaylistItem = ({ viewType, id, name, owner, image, songs = null }) => {
+  const author_spotify = owner.external_urls.spotify || "#";
+  const display_name  = owner?.display_name || "Unknown";
 
-export const PlaylistItem = ({ viewType, id, name, owner, image }) => {
-  const author_spotify = owner.external_urls.spotify;
-  const { display_name } = owner;
+  const { setSelectedPlaylist } = useContext(MusicContext);
+
+  const handleSelect = () => {
+    const selectedPlaylist = {
+      id,
+      name,
+      owner,
+      image,
+      songs,
+    };
+    setSelectedPlaylist(selectedPlaylist);
+  };
+
   return (
-    <div className={`playlist ${viewType}`}>
+    <div className={`playlist ${viewType}`} onClick={handleSelect}>
       <div className="playlist__details">
         <div className="playlist__img-container">
           <img src={image} alt="" className="playlist__img" />

@@ -1,9 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import "./SongItem.css";
-
 import {
-  PlaylistAdd,
-  QueueMusic,
   PlayArrow,
   Stop,
   Favorite,
@@ -11,24 +8,23 @@ import {
   MoreHoriz,
 } from "@mui/icons-material";
 import { MusicContext } from "../../context/MusicContext";
+import { SongItemMenu } from "./SongItemMenu";
+import { PlayerContext } from "../../context/PlayerContext";
 
-export const SongItem = ({ viewType, id, name, image, artist }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+export const SongItem = ({ viewType, id, name, image, artists, preview }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const songItemRef = useRef(null);
 
-  const {
-    addToFavorites,
-    removeFromFavorites,
-    favoriteMusic,
-    setFavoriteMusic,
-  } = useContext(MusicContext);
+  const { addToFavorites, removeFromFavorites, favoriteMusic } =
+    useContext(MusicContext);
+  const { playSong, checkIsPlaying, togglePlayPause } = useContext(PlayerContext);
 
   const handleFavorite = () => {
     if (isFavorite) {
       removeFromFavorites(id);
     } else {
-      const favoriteSong = { id, name, image, artist };
+      const favoriteSong = { id, name, image, artists, preview };
       addToFavorites(favoriteSong);
     }
   };
@@ -38,28 +34,58 @@ export const SongItem = ({ viewType, id, name, image, artist }) => {
     setIsFavorite(isFav);
   }, [favoriteMusic, id]);
 
+  const handleClickOutside = (event) => {
+    if (songItemRef.current && !songItemRef.current.contains(event.target)) {
+      setShowOptions(false);
+    }
+  };
+
   useEffect(() => {
-    const localFavoriteMusic =
-      JSON.parse(localStorage.getItem("favoriteMusic")) || [];
-    setFavoriteMusic(localFavoriteMusic);
-  }, [setFavoriteMusic]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClick = (event) => {
+    if (
+      event.target.closest(".song__button--favorite") ||
+      event.target.closest(".song__button--more") ||
+      event.target.closest(".song__menu") ||
+      event.target.closest(".song__button-icon--stop")
+    ) {
+      return;
+    }
+    const song = {
+      id,
+      name,
+      image,
+      artists,
+      preview,
+    };
+    playSong(song);
+  };
+
+  const songIsPlaying = checkIsPlaying(id);
 
   return (
     <div
+      ref={songItemRef}
       className={`song ${viewType === "grid" ? "song--grid" : "song--list"} ${
-        isPlaying ? "song--active" : ""
-      }`}
+        viewType === "queue" ? "" : "song--queue"
+      } ${songIsPlaying ? "song--active" : ""}`}
+      onClick={handleClick}
     >
       <div className="song__details">
         <button
           type="button"
           className="song__button song__button--play"
-          onClick={() => setIsPlaying(!isPlaying)}
+          
         >
-          {isPlaying ? (
-            <Stop className="song__button-icon" />
+          {songIsPlaying ? (
+            <Stop className="song__button-icon song__button-icon--stop" onClick={togglePlayPause}/>
           ) : (
-            <PlayArrow className="song__button-icon" />
+            <PlayArrow className="song__button-icon " />
           )}
         </button>
         <div className="song__img-container">
@@ -68,13 +94,16 @@ export const SongItem = ({ viewType, id, name, image, artist }) => {
         <div>
           <h2 className="song__title">{name}</h2>
           <div className="song__description">
-            <p className="song__author">{artist}</p>
-            {/* <span className="song__duration">3 min 30 sec</span> */}
+            <p className="song__artist">{artists}</p>
           </div>
         </div>
       </div>
       <div className="song__buttons">
-        <button type="button" className="song__button" onClick={handleFavorite}>
+        <button
+          type="button"
+          className="song__button song__button--favorite"
+          onClick={handleFavorite}
+        >
           {isFavorite ? (
             <Favorite className="song__button-icon" />
           ) : (
@@ -83,33 +112,17 @@ export const SongItem = ({ viewType, id, name, image, artist }) => {
         </button>
         <button
           type="button"
-          className="song__button"
+          className="song__button song__button--more"
           onClick={() => setShowOptions(!showOptions)}
         >
           <MoreHoriz className="song__button-icon" />
         </button>
         {showOptions && (
-          <div className="song__options">
-            <button type="button" className="song__option-button">
-              <PlaylistAdd className="song__button-icon" /> Add to Playlist
-            </button>
-            <button type="button" className="song__option-button">
-              <QueueMusic className="song__button-icon" /> Add to Queue
-            </button>
-
-            <button
-              type="button"
-              className="song__option-button"
-              onClick={handleFavorite}
-            >
-              {isFavorite ? (
-                <Favorite className="song__button-icon" />
-              ) : (
-                <FavoriteBorder className="song__button-icon" />
-              )}
-              Add to favorites
-            </button>
-          </div>
+          <SongItemMenu
+            handleFavorite={handleFavorite}
+            isFavorite={isFavorite}
+            song={{ id, name, artists, image, preview }}
+          />
         )}
       </div>
     </div>
