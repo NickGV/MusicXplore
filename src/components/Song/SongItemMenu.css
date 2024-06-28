@@ -81,3 +81,10 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .song__menu {
+    font-size: 0.8em;
+    width: 180px;
+  }
+}

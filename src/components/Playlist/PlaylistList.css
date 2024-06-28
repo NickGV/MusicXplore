@@ -1,9 +1,14 @@
 .playlists-section {
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
+  height: 100%;
 }
 .playlists {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  overflow-y: auto;
+  height: 35rem;
   gap: 1rem;
 }
 
