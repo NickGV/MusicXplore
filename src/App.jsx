@@ -15,9 +15,7 @@ function App() {
             <SearchBar />
           </header>
           <MainSeccion />
-          <section className="player-section">
-            <Player />
-          </section>
+          <Player /> 
         </PlayerProvider>
       </MusicProvider>
     </>

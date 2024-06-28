@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export const SearchBar = () => {
   const [query, setQuery] = useState("");
-  const { handleResults, setIsLoading } = useContext(MusicContext);
+  const { handleResults, setIsLoading, setSelectedPlaylist } = useContext(MusicContext);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -21,6 +21,7 @@ export const SearchBar = () => {
       const data = await search(query, "track,playlist");
       setIsLoading(false);
       handleResults(data);
+      setSelectedPlaylist(null)
       navigate("/"); 
     }
   };

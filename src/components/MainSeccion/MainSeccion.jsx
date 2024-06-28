@@ -10,9 +10,11 @@ import { Routes, Route } from "react-router-dom";
 
 import "./MainSeccion.css";
 import { PlaylistForm } from "../Playlist/PlaylistForm";
+import { PlaylistList } from "../Playlist/PlaylistList";
 
 export const MainSeccion = () => {
-  const { selectedPlaylist, isPlaylistFormVisible, setIsPlaylistFormVisible } = useContext(MusicContext);
+  const { selectedPlaylist, isPlaylistFormVisible, setIsPlaylistFormVisible } =
+    useContext(MusicContext);
 
   return (
     <main className="main">
@@ -24,6 +26,8 @@ export const MainSeccion = () => {
         <Routes>
           <Route path="/" element={<Discover />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/queue" element={<Queue className={"movile"} />} />
+          <Route path="/playlists" element={<PlaylistList />} />
         </Routes>
       )}
 

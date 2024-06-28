@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { MusicContext } from "./MusicContext";
 
 export const MusicProvider = ({ children }) => {
@@ -161,6 +161,7 @@ export const MusicProvider = ({ children }) => {
         addSongToQueue,
         removeSongFromQueue,
         queue,
+        setQueue,
         playlists,
         selectedPlaylist,
         setSelectedPlaylist,

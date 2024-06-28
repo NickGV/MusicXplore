@@ -1,24 +1,21 @@
 import { useContext } from "react";
 import { MusicContext } from "../../context/MusicContext";
 import { SongItem } from "../Song/SongItem";
+import "./Favorites.css";
 
 export const Favorites = () => {
   const { favoriteMusic } = useContext(MusicContext);
 
   return (
-    <div>
+    <section className="favorites">
       {favoriteMusic.length === 0 ? (
-        <h2 className="text-white-headline text-xl font-bold p-2">
-          No hay canciones favoritas
-        </h2>
+        <h2 className="favorites__title">No favorite Songs</h2>
       ) : (
         <div>
-          <h2 className="text-white-headline text-xl font-bold p-2">
-            Favoritos
-          </h2>
+          <h2 className="favorites__title">Favorites</h2>
           <ul>
             {favoriteMusic.map((music) => (
-              <li className="border-b" key={music.id}>
+              <li key={music.id}>
                 <SongItem
                   id={music.id}
                   name={music.name}
@@ -31,6 +28,6 @@ export const Favorites = () => {
           </ul>
         </div>
       )}
-    </div>
+    </section>
   );
 };

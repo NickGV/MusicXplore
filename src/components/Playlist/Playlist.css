@@ -35,14 +35,15 @@
         font-size: 3em;
         font-weight: bold;
       }
+
+      
     }
   }
   .playlist-view__options {
     display: flex;
     padding: 1rem;
     gap: 1rem;
-P
-    .playlist-view__button {
+    P .playlist-view__button {
     }
     .playlist-view__icon {
       font-size: 2em;
@@ -51,7 +52,7 @@ P
       font-size: 3.5em;
       color: var(--accent-color);
     }
-    .playlist-view__icon--active{
+    .playlist-view__icon--active {
       color: var(--accent-color);
     }
   }
@@ -69,6 +70,39 @@ P
     :hover {
       color: var(--accent-color);
       transform: scale(1.1);
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .playlist-view {
+    .playlist-view__info {
+      flex-direction: column;
+      align-items: start;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 5px 5px 0 0;
+      margin-bottom: 0;
+      background-color: transparent;
+
+      .playlist-view__img-container {
+        margin-top: 0;
+        margin: auto;
+      }
+
+      .playlist-view__description {
+        span {
+          display: none;
+        }
+
+        .playlist-view__title {
+          font-size: 1.5em;
+        }
+      } 
+    }
+    
+    .playlist-view__options{
+      padding-top: 0;
     }
   }
 }

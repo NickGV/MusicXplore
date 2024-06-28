@@ -1,0 +1,7 @@
+.favorites {
+  padding: 0.5rem;
+  .favorites__title{
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+}

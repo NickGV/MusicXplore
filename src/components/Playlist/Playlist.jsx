@@ -12,10 +12,12 @@ import { SongItem } from "../Song/SongItem";
 import { getPlaylist } from "../../api/spotifyService";
 
 import "./Playlist.css";
+import { PlayerContext } from "../../context/PlayerContext";
 
 export const Playlist = () => {
   const [isAdd, setIsAdd] = useState(false);
   const [songs, setSongs] = useState(null);
+  const [isPlaylistPlayings, setIsPlaylistPlayings] = useState(false);
 
   const {
     selectedPlaylist,
@@ -23,31 +25,36 @@ export const Playlist = () => {
     addPlaylist,
     removePlaylist,
     playlists,
-    removeSongFromPlaylist,
   } = useContext(MusicContext);
+  const { playPlaylist, togglePlayPause } = useContext(PlayerContext);
 
   const handleBack = () => {
     setSelectedPlaylist(null);
   };
 
   useEffect(() => {
-    if (selectedPlaylist.songs === null) {
-      const getPlaylistSongs = async () => {
-        if (!selectedPlaylist) return null;
-        const response = await getPlaylist(selectedPlaylist.id);
-
-        const formattedSongs = response.tracks.items.map((item) => ({
-          id: item.track.id,
-          name: item.track.name,
-          artists: item.track.artists.map((artist) => artist.name).join(", "),
-          image: item.track.album.images[0]?.url || "",
-          preview: item.track.preview_url
-        }));
-        setSongs(formattedSongs);
-      };
-      getPlaylistSongs();
+    if (selectedPlaylist) {
+      if (selectedPlaylist.songs === null) {
+        const getPlaylistSongs = async () => {
+          const response = await getPlaylist(selectedPlaylist.id);
+          const formattedSongs = response.tracks.items.map((item) => ({
+            id: item.track.id,
+            name: item.track.name,
+            artists: item.track.artists.map((artist) => artist.name).join(", "),
+            image: item.track.album.images[0]?.url || "",
+            preview: item.track.preview_url,
+          }));
+          setSelectedPlaylist((prevPlaylist) => ({
+            ...prevPlaylist,
+            songs: formattedSongs,
+          }));
+          setSongs(formattedSongs);
+        };
+        getPlaylistSongs();
+      } else {
+        setSongs(selectedPlaylist.songs);
+      }
     }
-    setSongs(selectedPlaylist.songs);
   }, [selectedPlaylist]);
 
   useEffect(() => {
@@ -70,12 +77,11 @@ export const Playlist = () => {
     }
   };
 
-  const handlePlay = () => {
-    return;
-  };
-
-  const handleShuffle = () => {
-    return;
+  const handleClick = () => {
+    if (!isPlaylistPlayings) {
+      playPlaylist();
+      setIsPlaylistPlayings(true);
+    }
   };
 
   return (
@@ -107,7 +113,20 @@ export const Playlist = () => {
           type="button"
           className="playlist-view__button playlist-view__button--big"
         >
-          <PlayCircle className="playlist-view__icon playlist-view__icon--big" />
+          {isPlaylistPlayings ? (
+            <StopCircle
+              className="playlist-view__icon playlist-view__icon--big"
+              onClick={() => {
+                togglePlayPause()
+                setIsPlaylistPlayings(false);
+              }}
+            />
+          ) : (
+            <PlayCircle
+              className="playlist-view__icon playlist-view__icon--big"
+              onClick={handleClick}
+            />
+          )}
         </button>
         <button type="button" className="playlist-view__button">
           <Shuffle className="playlist-view__icon" />

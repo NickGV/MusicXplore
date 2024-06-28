@@ -148,7 +148,7 @@
 @media screen and (max-width: 480px) {
   .song {
     box-shadow: none;
-    padding: 0;
+    padding: 0.3rem;
 
     .song__title {
       font-size: 0.8em;
@@ -160,11 +160,13 @@
         font-weight: 600;
       }
     }
-
-    .song__buttons {
+    .song__button--play{
       display: none;
     }
+    .song__button--favorite{
+      display: none;
+    }
+  
   }
 }
-
-.song.--borderless
+ 

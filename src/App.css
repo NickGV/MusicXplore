@@ -15,15 +15,4 @@
   }
 }
 
-.player-section {
-  width: 100%;
-  padding: 1rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background-color: var(--primary-color);
 
-  @media (max-width: 480px) {
-    display: none;
-  }
-}

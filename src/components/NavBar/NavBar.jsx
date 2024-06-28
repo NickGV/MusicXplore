@@ -5,6 +5,7 @@ import {
   LibraryMusic,
   FavoriteBorder,
   Add,
+  QueueMusic,
 } from "@mui/icons-material";
 import { PlaylistItem } from "../Playlist/PlaylistItem";
 import { useContext, useState } from "react";
@@ -51,6 +52,19 @@ export const NavBar = () => {
             <Add className="addPlaylist-btn__icon" />
           </button>
         </li>
+        <NavLink to="/playlists" onClick={changeView}>
+          <li className="nav-bar__link  nav-bar__link--library">
+            <LibraryMusic />
+            Library
+          </li>
+        </NavLink>
+
+        <NavLink to="/queue" onClick={changeView}>
+          <li className="nav-bar__link nav-bar__link--queue">
+            <QueueMusic />
+            Queue
+          </li>
+        </NavLink>
       </ul>
       {showLibrary && playlists && (
         <div className="playlist-list">

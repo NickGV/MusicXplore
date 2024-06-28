@@ -7,7 +7,7 @@ import { PlayerContext } from "../../context/PlayerContext";
 export const QueueItem = ({ id, name, image, artists, preview }) => {
   const queueItemRef = useRef(null);
   const { removeSongFromQueue } = useContext(MusicContext);
-  const { playSong, checkIsPlaying } = useContext(PlayerContext);
+  const { playSong, checkIsPlaying, setCurrentSong } = useContext(PlayerContext);
 
   const handleClick = (event) => {
     if (
@@ -22,7 +22,7 @@ export const QueueItem = ({ id, name, image, artists, preview }) => {
       artists,
       preview,
     };
-    playSong(song);
+    setCurrentSong(song);
   };
 
   const songIsPlaying = checkIsPlaying(id);

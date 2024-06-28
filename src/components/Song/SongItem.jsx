@@ -18,7 +18,8 @@ export const SongItem = ({ viewType, id, name, image, artists, preview }) => {
 
   const { addToFavorites, removeFromFavorites, favoriteMusic } =
     useContext(MusicContext);
-  const { playSong, checkIsPlaying, togglePlayPause } = useContext(PlayerContext);
+  const { setCurrentSong, checkIsPlaying, togglePlayPause, setShowPlayer } =
+    useContext(PlayerContext);
 
   const handleFavorite = () => {
     if (isFavorite) {
@@ -63,7 +64,8 @@ export const SongItem = ({ viewType, id, name, image, artists, preview }) => {
       artists,
       preview,
     };
-    playSong(song);
+    setShowPlayer(true)
+    setCurrentSong(song);
   };
 
   const songIsPlaying = checkIsPlaying(id);
@@ -72,18 +74,17 @@ export const SongItem = ({ viewType, id, name, image, artists, preview }) => {
     <div
       ref={songItemRef}
       className={`song ${viewType === "grid" ? "song--grid" : "song--list"} ${
-        viewType === "queue" ? "" : "song--queue"
-      } ${songIsPlaying ? "song--active" : ""}`}
+        songIsPlaying ? "song--active" : ""
+      }`}
       onClick={handleClick}
     >
       <div className="song__details">
-        <button
-          type="button"
-          className="song__button song__button--play"
-          
-        >
+        <button type="button" className="song__button song__button--play">
           {songIsPlaying ? (
-            <Stop className="song__button-icon song__button-icon--stop" onClick={togglePlayPause}/>
+            <Stop
+              className="song__button-icon song__button-icon--stop"
+              onClick={togglePlayPause}
+            />
           ) : (
             <PlayArrow className="song__button-icon " />
           )}

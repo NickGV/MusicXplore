@@ -1,8 +1,27 @@
 .queue {
   display: flex;
   flex-direction: column;
-
   height: 100%;
+
+  .queue__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      background-color: var(--secondary-color);
+      border-radius: 5px;
+      &:hover {
+        color: var(--accent-color);
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 .queue__title {
@@ -34,5 +53,12 @@
 @media screen and (max-width: 480px) {
   .queue {
     display: none;
+  }
+  .queue.movile {
+    display: flex;
+    .queue__list {
+      box-shadow: none;
+      padding: 0.5rem;
+    }
   }
 }

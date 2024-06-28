@@ -1,0 +1,13 @@
+.playlists-section {
+  padding: 1rem;
+}
+.playlists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.playlsits__title {
+  font-size: 2em;
+  font-weight: bold;
+}

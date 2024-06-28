@@ -1,17 +1,19 @@
 import "./Player.css";
-import images from "../../assets/images.jpg";
+import { useContext, useEffect, useState } from "react";
 import {
   Favorite,
   FavoriteBorder,
   PlaylistAdd,
   Add,
   Check,
+  ArrowBack,
 } from "@mui/icons-material";
-import { useContext, useEffect, useRef, useState } from "react";
-import { PlayerContext } from "../../context/PlayerContext";
 import { PlayerControls } from "./PlayerControls";
+import { Slider } from "./Slider";
+import { PlayerContext } from "../../context/PlayerContext";
 import { MusicContext } from "../../context/MusicContext";
 import { PlaylistItem } from "../Playlist/PlaylistItem";
+import { PlayerMovil } from "./PlayerMovil";
 
 export const Player = () => {
   const [showPlaylists, setShowPlaylists] = useState(false);
@@ -27,8 +29,8 @@ export const Player = () => {
     playlists,
   } = useContext(MusicContext);
 
-  const { currentSong, audioRef } = useContext(PlayerContext);
-  console.log(audioRef)
+  const { currentSong, audioRef, setCurrentTime, showPlayer, setShowPlayer } =
+    useContext(PlayerContext);
 
   const handleFavorite = () => {
     if (isFavorite) {
@@ -50,10 +52,10 @@ export const Player = () => {
       const isFav = favoriteMusic.some((item) => item.id === currentSong.id);
       setIsFavorite(isFav);
     }
-    return;
-  }, [favoriteMusic]);
+  }, [favoriteMusic, currentSong]);
 
   const togglePlaylists = () => {
+    setShowPlayer(true);
     setShowPlaylists(!showPlaylists);
   };
 
@@ -66,7 +68,6 @@ export const Player = () => {
       preview: currentSong.preview,
     };
     if (!isSongInPlaylist(song, playlistId)) {
-      console.log(song, playlistId, "added");
       addSongToPlaylist(song, playlistId);
       setShowPlaylists(false);
     }
@@ -82,113 +83,120 @@ export const Player = () => {
     return playlist.songs.some((s) => s.id === currentSong.id);
   };
 
-  // useEffect(() => {
-  //   if (audioRef && audioRef.current && currentSong) {
-  //     audioRef.current.src = currentSong.preview;
-  //     audioRef.current.play();
-  //   }
-  // }, [currentSong, audioRef]);
+  const onValueChange = (value) => {
+    audioRef.current.currentTime = value;
+    setCurrentTime(value);
+  };
+
+  const handleBack = () => {
+    setShowPlayer(false);
+  };
 
   if (!currentSong)
     return (
-      <section className="player">
-        <div className="player__text">
-          <div className="player__img-container">
-            <img src={images} alt="" className="player__img" />
-          </div>
-          <div>
-            <h2 className="player__title">Song</h2>
-            <div className="player__description">
-              <p className="player__author">Author</p>
-            </div>
-          </div>
-        </div>
+      <div className="player--songless">
         <h1>Select a song</h1>
-        <div></div>
-      </section>
+      </div>
     );
 
   return (
-    <section className="player">
-      <div className="player__text">
-        <div className="player__img-container">
-          <img src={currentSong.image} alt="" className="player__img" />
-        </div>
-        <div>
-          <h2 className="player__title">{currentSong.name}</h2>
-          <div className="player__description">
-            <p className="player__artists">{currentSong.artists}</p>
+    <section className={`player-section ${showPlayer && currentSong ? "show" : ""}`}>
+      {showPlayer ? (
+        <div className="player">
+          <div className="player__back">
+            <ArrowBack className="player__button-icon" onClick={handleBack} />
           </div>
-        </div>
-      </div>
-
-      <PlayerControls />
-
-      <div className="player__options">
-        <button
-          type="button"
-          className="player__button player__button--favorite"
-          onClick={handleFavorite}
-        >
-          {isFavorite ? (
-            <Favorite className="player__button-icon" />
-          ) : (
-            <FavoriteBorder className="player__button-icon" />
-          )}
-        </button>
-        <button
-          type="button"
-          className="player__button"
-          onClick={togglePlaylists}
-        >
-          <PlaylistAdd className="player__button-icon" />
-        </button>
-        {showPlaylists && (
-          <div className="playlists-dropdown">
-            {playlists.length > 0 ? (
-              playlists.map((playlist) => (
-                <div key={playlist.id} className="playlist-dropdown__playlist">
-                  <PlaylistItem
-                    viewType={"list--smaller"}
-                    key={playlist.id}
-                    id={playlist.id}
-                    name={playlist.name}
-                    owner={playlist.owner}
-                    image={playlist.image}
-                  />
-                  {isSongInPlaylist(currentSong, playlist.id) ? (
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveToPlaylist(playlist.id)}
-                    >
-                      <Check />
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => handleAddToPlaylist(playlist.id)}
-                    >
-                      <Add />
-                    </button>
-                  )}
-                </div>
-              ))
-            ) : (
-              <div className="playlist-item">No playlists available</div>
-            )}
+          <div className="player__text">
+            <div className="player__img-container">
+              <img src={currentSong.image} alt="" className="player__img" />
+            </div>
+            <div>
+              <h2 className="player__title">{currentSong.name}</h2>
+              <div className="player__description">
+                <p className="player__artists">{currentSong.artists}</p>
+              </div>
+            </div>
+          </div>
+          <div className="player__controls-container">
+            <Slider onValueChange={onValueChange} />
+            <PlayerControls />
+          </div>
+          <div className="player__options">
             <button
               type="button"
-              className="addplaylist-btn"
-              onClick={() => setIsPlaylistFormVisible(true)}
+              className="player__button player__button--favorite"
+              onClick={handleFavorite}
             >
-              <Add />
-              add new playlists
+              {isFavorite ? (
+                <Favorite className="player__button-icon" />
+              ) : (
+                <FavoriteBorder className="player__button-icon" />
+              )}
             </button>
+            <button
+              type="button"
+              className="player__button"
+              onClick={togglePlaylists}
+            >
+              <PlaylistAdd className="player__button-icon" />
+            </button>
+            {showPlaylists && (
+              <div className="playlists-dropdown">
+                {playlists.length > 0 ? (
+                  playlists.map((playlist) => (
+                    <div
+                      key={playlist.id}
+                      className="playlist-dropdown__playlist"
+                    >
+                      <PlaylistItem
+                        viewType={"list--smaller"}
+                        key={playlist.id}
+                        id={playlist.id}
+                        name={playlist.name}
+                        owner={playlist.owner}
+                        image={playlist.image}
+                      />
+                      {isSongInPlaylist(currentSong, playlist.id) ? (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveToPlaylist(playlist.id)}
+                        >
+                          <Check />
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => handleAddToPlaylist(playlist.id)}
+                        >
+                          <Add />
+                        </button>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <div className="playlist-item">No playlists available</div>
+                )}
+                <button
+                  type="button"
+                  className="addplaylist-btn"
+                  onClick={() => setIsPlaylistFormVisible(true)}
+                >
+                  <Add />
+                  add new playlists
+                </button>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <audio ref={audioRef} autoPlay>
-        Tu navegador no soporta el elemento <code>audio</code>.
+        </div>
+      ) : (
+        <PlayerMovil
+          handleFavorite={handleFavorite}
+          isFavorite={isFavorite}
+          setShowPlayer={setShowPlayer}
+        />
+      )}
+      <audio ref={audioRef}>
+        Your browser does not support the <code>audio</code> element.
       </audio>
     </section>
   );
