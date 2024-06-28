@@ -1,8 +1,20 @@
-# React + Vite
+# MusiXplore
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MusiXplore is a music application that allows users to explore songs and playlists, add songs to their favorites, create and manage playlists, and play songs and playlists through an integrated player.
 
-Currently, two official plugins are available:
+### Visit the website [here](https://musicxplore.netlify.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+- **Music Exploration:** Search and explore songs and playlists.
+- **Favorites:** Add songs to your favorites and easily access them.
+- **Playlists:** Create and manage custom playlists.
+- **Playback Queue:** Add songs to the playback queue and control the order of playback.
+- **Music Player:** Play songs and playlists with playback controls.
+
+## Technologies Used
+
+- **React:** JavaScript library for building user interfaces.
+- **Context API:** State management for the application.
+- **Local Storage:** Storage of favorite songs and playlists data in the browser.
+
