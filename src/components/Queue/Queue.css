@@ -58,6 +58,26 @@
     display: flex;
     flex-direction: column;
 
+    .queue__header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .play-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        background-color: var(--secondary-color);
+        border-radius: 5px;
+        &:hover {
+          color: var(--accent-color);
+          cursor: pointer;
+        }
+      }
+    }
+
     .queue__list {
       box-shadow: none;
       padding: 0.5rem;
