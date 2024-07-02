@@ -11,7 +11,7 @@ export const Queue = ({className}) => {
     <section className={`queue ${className}`}>
      <div className="queue__header">
        <h1 className="queue__title">Queue</h1>
-       <button onClick={playQueue}>Play</button>
+       <button onClick={playQueue} className="play-btn">Play</button>
      </div>
       <div className="queue__list">
         {queue &&
